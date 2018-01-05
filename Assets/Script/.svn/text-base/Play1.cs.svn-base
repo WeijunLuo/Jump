@@ -1,0 +1,272 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Play1 : MonoBehaviour {
+
+	//先用扫雷的方法让玩家找到雷，当玩家标记为地雷
+
+
+	class BlockStruct
+	{
+		public GameObject  obj = null;
+		public BlockStruct top = null;
+		public BlockStruct down = null;
+		public BlockStruct left = null;
+		public BlockStruct rgith= null;
+		public BlockStruct front= null;
+		public BlockStruct back = null;
+
+		public void CloseBlock(BlockStruct block)
+		{
+			List<BlockStruct> empity = new List<BlockStruct> ();
+			List<Vector3> pos = new List<Vector3> ();
+
+			if (top == null) {
+				empity.Add (top);
+				pos.Add (obj.transform.position+new Vector3(0,1,0));
+			}
+			if (down == null) {
+				empity.Add (down);
+				pos.Add (obj.transform.position+new Vector3(0,-1,0));
+			}
+			if (left == null) {
+				empity.Add (left);
+				pos.Add (obj.transform.position+new Vector3(-1,0,0));
+			}
+			if (rgith == null) {
+				empity.Add (rgith);
+				pos.Add (obj.transform.position+new Vector3(1,0,0));
+			}
+			if (front == null) {
+				empity.Add (front);
+				pos.Add (obj.transform.position+new Vector3(0,0,1));
+			}
+			if (back == null) {
+				empity.Add (back);
+				pos.Add (obj.transform.position+new Vector3(0,0,-1));
+			}
+
+			int index = Random.Range (0,empity.Count);
+
+			block.obj.transform.position = pos [index];
+			empity [index] = block;
+		}
+
+	}
+
+	public GameObject block;
+	public Transform root,mycamera;
+	const int w=10,l=10,h=10;
+	int[,,] blocksInfo	 = new int[w,l,h];
+	GameObject[,,] blockObj = new GameObject[w,l,h];
+	List<BlockStruct> listObj = new List<BlockStruct>();
+	Vector3 screenCenter;
+	Vector3 lastRotate;
+	// Use this for initialization
+	void Start () {
+		lastRotate = mycamera.eulerAngles;
+		mycamera.eulerAngles = new Vector3 (0,275,0);
+		screenCenter = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
+	
+		print (Mathf.Sin(30.0f * Mathf.Deg2Rad));
+		for(int i=0;i<w;i+=1)
+		{
+			for (int m = 0; m < l; m += 1) {
+
+				for (int n = 0; n < h; n += 1) {
+					GameObject temp = GameObject.Instantiate<GameObject> (block);
+					temp.transform.SetParent (root);
+					temp.transform.localScale = Vector3.one;
+					temp.transform.localEulerAngles = Vector3.zero;
+					temp.transform.position = new Vector3 (i+0.5f,m+0.5f,n+0.5f);
+					Material mat = new Material (Shader.Find("Standard"));
+					mat.color =  new Color (Random.Range (0.0f, 1.0f), Random.Range (0.0f, 1.0f), Random.Range (0.0f, 1.0f), 1);
+//					temp.GetComponent<MeshRenderer> ().material.SetColor ("_Color", new Color (Random.Range (0, 1), Random.Range (0, 1), Random.Range (0, 1), 1));
+					temp.GetComponent<MeshRenderer> ().material = mat;
+
+					//first block position is zero
+
+					if (i == 0 && m == 0 && n == 0) {
+						BlockStruct block = new BlockStruct ();
+						block.obj = temp;
+						listObj.Add (block);
+
+					} else {
+						
+						BlockStruct refrence = randomBlock();
+						BlockStruct block = new BlockStruct ();
+						block.obj = temp;
+						refrence.CloseBlock (block);
+						listObj.Add (block);
+					}
+
+				}
+			}
+		}
+	}
+	BlockStruct randomBlock()
+	{
+		BlockStruct block = null;
+		block = listObj [Random.Range (0, listObj.Count)];
+		if (block.back != null && block.down != null && block.front != null && block.left != null && block.rgith != null && block.top != null)
+			return randomBlock ();
+		else
+			return block;
+	}
+	/// <summary>
+	/// Update this instance.
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+	/// 
+	/// </summary>
+	Vector3 startMousePos;
+	Vector3 startRotate;
+	public float radiu =10;
+	float currentThta,currentFai;
+	float totalTime = 0;
+//	void Update()
+//	{
+////		totalTime += Time.deltaTime * 100;
+////		mycamera.position = new Vector3 (radiu * Mathf.Cos (totalTime * Mathf.Deg2Rad), 0, radiu * Mathf.Sin (totalTime * Mathf.Deg2Rad));
+////
+////		Quaternion rotation = Quaternion.LookRotation(root.position - mycamera.position,mycamera.up);
+////		mycamera.rotation = rotation;
+//
+//
+//		Debug.DrawLine (mycamera.position,new Vector3(root.position.x,mycamera.position.y, root.position.z),Color.blue);
+//		Debug.DrawRay (mycamera.position, mycamera.forward, Color.green);
+////		float angle = Vector3.Angle (new Vector3 (root.position.x, Camera.main.transform.position.y, root.position.z) - Camera.main.transform.position, Camera.main.transform.forward);
+////		Vector3 crossV = Vector3.Cross (new Vector3 (root.position.x, Camera.main.transform.position.y, root.position.z) - Camera.main.transform.position, Camera.main.transform.forward);
+////		if (crossV.y > 0)
+////			angle = 180 + 180 - angle;
+//
+////		Vector3 forward = Vector3.
+////		Camera.main.transform.eulerAngles = lastRotate + new Vector3 (0, angle, 0);
+////		lastRotate = Camera.main.transform.eulerAngles;
+//		Debug.DrawLine (root.position,mycamera.position,Color.green);
+////		float angleX = Vector3.Angle (root.position-Camera.main.transform.position,Camera.main.transform.forward);
+////		print (angleX);
+////		Camera.main.transform.eulerAngles = lastRotate + new Vector3 (angleX, 0, 0);
+////		lastRotate = Camera.main.transform.eulerAngles;
+//
+//		if (Input.GetMouseButtonDown (0)) {
+//			Debug.Log ("1111");
+//			startMousePos = Input.mousePosition;
+//			startRotate = root.localEulerAngles;
+//			currentFai = Mathf.Atan (mycamera.position.z/mycamera.position.x) * Mathf.Rad2Deg;
+//			currentThta = Mathf.Acos (mycamera.position.x / radiu)* Mathf.Rad2Deg;
+//		}
+//		if (Input.GetMouseButtonUp(0))
+//			Debug.Log("3333");
+//		if (Input.GetMouseButton (0)) {
+//			Debug.Log (2222);
+//			float offx =  startMousePos.x-Input.mousePosition.x;
+//			float offy = startMousePos.y-Input.mousePosition.y;
+//			float x = radiu * Mathf.Sin ((currentThta+offy) * Mathf.Deg2Rad) * Mathf.Cos((currentFai + offx) * Mathf.Deg2Rad);
+//			float z = radiu * Mathf.Sin ((currentThta+offy) * Mathf.Deg2Rad) * Mathf.Sin ((currentFai + offx) * Mathf.Deg2Rad);
+//			float y = radiu * Mathf.Cos ((currentThta+offy) * Mathf.Deg2Rad);
+//
+//			mycamera.position = new Vector3 (x,y,z);
+//
+//
+////			if (Mathf.Abs (offx) > Mathf.Abs (offy)) {
+////
+////
+////				mycamera.position = new Vector3 (radiu * Mathf.Cos ((currentThta+offx) * Mathf.Deg2Rad), 0, radiu * Mathf.Sin ((currentThta+offx) * Mathf.Deg2Rad)) ;
+////				Quaternion rotation = Quaternion.LookRotation (root.position - mycamera.position, Vector3.up);
+////				mycamera.rotation = rotation;
+////			} else {
+//////
+////				mycamera.position = new Vector3 (radiu * Mathf.Cos ((currentThta+offy) * Mathf.Deg2Rad),  radiu * Mathf.Sin ((currentThta+offy) * Mathf.Deg2Rad),0);
+//			Quaternion rotation = Quaternion.LookRotation (root.position - mycamera.position, Vector3.forward);
+//				mycamera.rotation = rotation;
+////			}
+////			startMousePos = Input.mousePosition;
+//
+////			Quaternion rotation = Quaternion.LookRotation(root.position - mycamera.position,mycamera.up);
+////			mycamera.rotation = rotation;
+//
+//
+//
+////			angle = new Vector3 (angle.x,angle.y,0);
+//	
+////			if (angle.x < 0)
+////				angle.x = 360 + angle.x;
+////			if (angle.y < 0)
+////				angle.y = 360 + angle.y;
+////			mycamera.eulerAngles = angle;
+////			lastRotate =mycamera.eulerAngles;
+////			print ("======"+angle+">>>>>>>>"+mycamera.eulerAngles);
+//
+////			float angleX =  Mathf.Acos (Vector3.Dot (Vector3.forward, (new Vector3(0,Camera.main.transform.position.y,0) - Camera.main.transform.position).normalized)) * Mathf.Rad2Deg;
+////			Camera.main.transform.eulerAngles =new Vector3(0,angleX,0);
+////			Camera.main.transform.LookAt (root);
+//
+//
+//
+//
+//			//摄像机到中心点的之间的向量与摄像机
+////			Vector3 diff = root.position - Camera.main.transform.position;  
+////			Quaternion q = Quaternion.FromToRotation(Vector3.forward, diff);  
+//////
+////			Vector3 n = q * Vector3.forward;  
+////			Vector3 worldUp = Vector3.up;  
+////			float dirDot = Vector3.Dot(n, worldUp);  
+////			Vector3 vProj = worldUp - n * dirDot;    //worldUp在xy平面上的投影量  
+////			vProj.Normalize();  
+//////
+////			Vector3 newUp = q * Vector3.up; 
+////
+////			float dotproj = Vector3.Dot(vProj, newUp);  
+////			float theta = Mathf.Acos(dotproj) * Mathf.Rad2Deg;  
+////			Quaternion qNew = Quaternion.AngleAxis(theta, n);          
+////
+////			Quaternion qall = qNew * q;  
+////			Camera.main.transform.rotation = qall;  
+//		}
+////		Debug.DrawRay()
+//	}
+//	void OnDrawGizmos()
+//	{
+//
+//		// 设置矩阵
+//		Matrix4x4 defaultMatrix = Gizmos.matrix;
+//		Gizmos.matrix = root.transform.localToWorldMatrix;
+//
+//		// 设置颜色
+//		Color defaultColor = Gizmos.color;
+//		Gizmos.color = Color.red;
+//
+//		// 绘制圆环
+//		Vector3 beginPoint = Vector3.zero;
+//		Vector3 firstPoint = Vector3.zero;
+//		float theta = 0;
+//
+//		for (int i = 0; i < 10; i += 1) {
+//
+//			for (int fai = 0; fai < 360; fai += 10) {
+//				beginPoint = new Vector3 (radiu* Mathf.Sin ((theta + fai /20.0f) * Mathf.Deg2Rad) * Mathf.Cos (fai * Mathf.Deg2Rad),radiu* Mathf.Cos ((theta + fai /20.0f) * Mathf.Deg2Rad), radiu* Mathf.Sin ((theta + fai /20.0f) * Mathf.Deg2Rad) * Mathf.Sin (fai * Mathf.Deg2Rad));
+//				Vector3 endPoint = new Vector3 (radiu* Mathf.Sin ((theta + fai /20.0f) * Mathf.Deg2Rad) * Mathf.Cos ((fai + 10) * Mathf.Deg2Rad), radiu*Mathf.Cos ((theta+fai /20.0f) * Mathf.Deg2Rad), radiu*Mathf.Sin ((theta + fai /20.0f) * Mathf.Deg2Rad) * Mathf.Sin ((fai + 10) * Mathf.Deg2Rad));
+//				Gizmos.DrawLine (beginPoint, endPoint);
+//
+//			}
+//			theta += 18;
+//		}
+//
+//		// 绘制最后一条线段
+//		//		Gizmos.DrawLine(firstPoint, beginPoint);
+//
+//		// 恢复默认颜色
+//		Gizmos.color = defaultColor;
+//
+//		// 恢复默认矩阵
+//		Gizmos.matrix = defaultMatrix;
+//	}
+
+}

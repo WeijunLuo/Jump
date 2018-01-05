@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts
+END
+PivotBasedCameraRig.cs
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/PivotBasedCameraRig.cs
+END
+FreeLookCam.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/FreeLookCam.cs.meta
+END
+HandHeldCam.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/HandHeldCam.cs.meta
+END
+AutoCam.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/AutoCam.cs.meta
+END
+AbstractTargetFollower.cs
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/AbstractTargetFollower.cs
+END
+LookatTarget.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/LookatTarget.cs.meta
+END
+FreeLookCam.cs
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/FreeLookCam.cs
+END
+HandHeldCam.cs
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/HandHeldCam.cs
+END
+AutoCam.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/AutoCam.cs
+END
+ProtectCameraFromWallClip.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/ProtectCameraFromWallClip.cs.meta
+END
+TargetFieldOfView.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/TargetFieldOfView.cs.meta
+END
+PivotBasedCameraRig.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/PivotBasedCameraRig.cs.meta
+END
+LookatTarget.cs
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/LookatTarget.cs
+END
+ProtectCameraFromWallClip.cs
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/ProtectCameraFromWallClip.cs
+END
+AbstractTargetFollower.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/AbstractTargetFollower.cs.meta
+END
+TargetFieldOfView.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/project_lwj/!svn/ver/1/Assets/Standard%20Assets/Cameras/Scripts/TargetFieldOfView.cs
+END
