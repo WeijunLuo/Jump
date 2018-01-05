@@ -28,6 +28,9 @@ public class Jump : MonoBehaviour {
 	public Vector3 upCameraOffset = new Vector3(-1.3f,4.5f,-4.8f);
 	public Vector3 upCameraRoation = new Vector3(30.9f,13.39f,0);
 
+	public Vector3 forntPlayerRoation = Vector3.zero;
+	public Vector3 upPlayerRotaion = Vector3.zero;
+
 	public GameObject RestartBtn;
 	public float startXSpeed = 10;
 	public float startYSpeed = 10;
@@ -77,7 +80,6 @@ public class Jump : MonoBehaviour {
 				isPress = false;
 				isMove = true;
 				isGenerate = false;
-
 				if(currentDirection == Direction.Front)
 				Player.GetComponent<Rigidbody> ().AddForce (new Vector3 (startXSpeed + pressTime * pressTime * addXSpeed + 100, startYSpeed + pressTime * pressTime * addYSpeed + 200
 				, 0));
@@ -90,15 +92,16 @@ public class Jump : MonoBehaviour {
 
 			if (vel.x == 0 && vel.y == 0 && vel.z == 0 && isMove && !isGenerate) {
 				isMove = false;
-				if (Player.localPosition.y < 1) {
-					print ("game over");
-					gameState = GameState.GameOver;
-					RestartBtn.SetActive (true);
-					return;
-				}
 				isGenerate = true;
 				print (1111111);
 				genObj (generateObj [generateObj.Count - 1].transform);
+			}
+			print (Player.GetComponent<Rigidbody>().velocity);
+			if (Player.localPosition.y < 0.5f) {
+				
+				isMove = false;
+				gameState = GameState.GameOver;
+				RestartBtn.SetActive (true);
 			}
 		}
 
